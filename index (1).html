@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Un PC pour deux petits</title>
+<style>
+:root{--bg:#fff7ef;--bg2:#ffe3d1;--card:rgba(255,255,255,.82);--text:#2a2220;--muted:#7a6c64;--a1:#ff5e3a;--a2:#ffb02e;--a3:#ff3d8b;--track:rgba(0,0,0,.09);--line:rgba(0,0,0,.08);--ok:#1f9d63;--shadow:0 10px 40px rgba(255,94,58,.18);
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#16110f;--bg2:#2b1712;--card:rgba(40,31,28,.82);--text:#f6eee8;--muted:#b9aaa0;--track:rgba(255,255,255,.12);--line:rgba(255,255,255,.1);--shadow:0 10px 40px rgba(0,0,0,.5);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#16110f;--bg2:#2b1712;--card:rgba(40,31,28,.82);--text:#f6eee8;--muted:#b9aaa0;--track:rgba(255,255,255,.12);--line:rgba(255,255,255,.1);--shadow:0 10px 40px rgba(0,0,0,.5);color-scheme:dark}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;min-height:100%;color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.55;background:radial-gradient(900px 500px at 85% -10%,var(--bg2),transparent 60%),radial-gradient(700px 500px at -10% 30%,var(--bg2),transparent 60%),var(--bg);overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:20}
+.blob{position:fixed;border-radius:50%;filter:blur(70px);opacity:.35;z-index:-1;animation:float 14s ease-in-out infinite}
+.b1{width:260px;height:260px;background:var(--a3);top:8%;left:-80px}
+.b2{width:300px;height:300px;background:var(--a2);bottom:5%;right:-100px;animation-delay:-6s}
+@keyframes float{50%{transform:translate(30px,-40px) scale(1.1)}}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:15;padding:10px 14px;background:var(--card);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.bar-in{max-width:640px;margin:0 auto}
+.row{display:flex;justify-content:space-between;gap:8px;font-size:.82rem;font-weight:700;margin-bottom:6px}
+.row .pct{color:var(--a1)}
+.track{height:20px;background:var(--track);border-radius:99px;overflow:hidden}
+.fill{position:relative;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,var(--a1),var(--a2),var(--a3));transition:width 1.6s cubic-bezier(.2,.8,.2,1);min-width:0}
+.fill::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.55) 50%,transparent 70%);transform:translateX(-100%);animation:shine 2.6s infinite}
+@keyframes shine{to{transform:translateX(100%)}}
+main{max-width:640px;margin:0 auto;padding:30px 16px 60px;text-align:center}
+.pc{font-size:4rem;display:inline-block;animation:bob 3s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-8px) rotate(-4deg)}}
+h1{font-size:clamp(2rem,8.5vw,3rem);line-height:1.1;margin:.15em 0 .3em;font-weight:900;letter-spacing:-.02em}
+h1 span{background:linear-gradient(90deg,var(--a1),var(--a3));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{color:var(--muted);font-size:1.05rem;margin:0 auto;max-width:34ch}
+.card{background:var(--card);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid var(--line);border-radius:26px;padding:26px 18px;margin:24px 0;box-shadow:var(--shadow)}
+.big{font-size:clamp(2.6rem,12vw,3.6rem);font-weight:900;line-height:1;background:linear-gradient(90deg,var(--a1),var(--a3));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sub{color:var(--muted);margin:8px 0 0}
+.done{display:none;margin-top:12px;color:var(--ok);font-weight:800}
+h2{margin:0 0 16px;font-size:1.35rem}
+.amounts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.amounts button{min-height:54px;border:2px solid var(--line);background:transparent;color:var(--text);border-radius:16px;font-size:1.1rem;font-weight:800;cursor:pointer;transition:.18s;font-family:inherit}
+.amounts button:active{transform:scale(.96)}
+.amounts button.on{border-color:transparent;background:linear-gradient(135deg,var(--a1),var(--a3));color:#fff;box-shadow:0 6px 18px rgba(255,61,139,.35)}
+.custom{display:block;text-align:left;font-size:.85rem;font-weight:700;color:var(--muted);margin-bottom:18px}
+.field{display:flex;align-items:center;margin-top:6px;border:2px solid var(--line);border-radius:16px;padding:0 16px;transition:.18s}
+.field:focus-within{border-color:var(--a1);box-shadow:0 0 0 4px rgba(255,94,58,.15)}
+.field input{flex:1;min-width:0;border:0;background:transparent;color:var(--text);font-size:1.4rem;font-weight:800;padding:14px 0;font-family:inherit}
+.field input:focus{outline:none}
+.field b{font-size:1.4rem;color:var(--muted)}
+.give{display:flex;align-items:center;justify-content:center;width:100%;min-height:60px;background:linear-gradient(135deg,var(--a1),var(--a3));color:#fff;text-decoration:none;font-size:1.2rem;font-weight:900;border:0;border-radius:18px;box-shadow:0 10px 26px rgba(255,61,139,.4);cursor:pointer;font-family:inherit;animation:pulse 2.4s infinite}
+.give:active{transform:scale(.98)}
+@keyframes pulse{50%{box-shadow:0 10px 36px rgba(255,61,139,.65)}}
+.msg{margin-top:14px;font-weight:700;min-height:1.4em;color:var(--ok)}
+footer{font-size:.85rem;color:var(--muted)}
+#confetti{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:30}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<div class="blob b1"></div><div class="blob b2"></div>
+<canvas id="confetti"></canvas>
+
+<div class="bar"><div class="bar-in">
+  <div class="row"><span id="raised">0 €</span><span class="pct" id="pct">0 %</span><span id="goalTxt"></span></div>
+  <div class="track" role="progressbar" aria-label="Progression de la cagnotte"><div class="fill" id="fill"></div></div>
+</div></div>
+
+<main>
+  <div class="pc">💻</div>
+  <h1>Un PC pour <span>deux petits</span></h1>
+  <p class="lead">Chaque don, même petit, les rapproche de leur ordinateur. Merci du fond du cœur&nbsp;! 💛</p>
+
+  <div class="card">
+    <div class="big" id="big">0 €</div>
+    <p class="sub">récoltés sur <b id="goal2"></b></p>
+    <div class="done" id="done">🎉 Objectif atteint, merci à tous&nbsp;!</div>
+  </div>
+
+  <div class="card">
+    <h2>Faire un don</h2>
+    <div class="amounts" id="amounts"></div>
+    <label class="custom">Ou choisis ton montant
+      <span class="field"><input id="custom" type="number" inputmode="decimal" min="1" step="any" placeholder="15"><b>€</b></span>
+    </label>
+    <a class="give" id="give" href="#" target="_blank" rel="noopener">❤️ Je donne</a>
+    <div class="msg" id="msg"></div>
+  </div>
+
+  <footer>Merci à chaque personne qui partage cette page 🙏</footer>
+</main>
+
+<script>
+/* ====== À MODIFIER ====== */
+const CONFIG = {
+  paymentUrl: "https://gofund.me/90a6493a9",  // lien de paiement
+  goal: 1000,            // objectif en euros
+  raised: 0,             // montant récolté en euros (à mettre à jour)
+  suggestions: [5, 10, 20, 50, 100, 200],
+  confettiAbove: 50      // confettis au-dessus de ce montant
+};
+/* ======================== */
+const $ = id => document.getElementById(id);
+const fmt = n => new Intl.NumberFormat("fr-FR",{maximumFractionDigits:2}).format(n) + " €";
+
+/* Progression */
+function render(){
+  const pct = Math.min(100, Math.round(CONFIG.raised / CONFIG.goal * 100));
+  $("goalTxt").textContent = "Objectif : " + fmt(CONFIG.goal);
+  $("goal2").textContent = fmt(CONFIG.goal);
+  $("pct").textContent = pct + " %";
+  $("raised").textContent = fmt(CONFIG.raised);
+  setTimeout(()=>{ $("fill").style.width = Math.max(pct, CONFIG.raised>0?3:0) + "%"; }, 200);
+  if(pct >= 100) $("done").style.display = "block";
+  const t0 = performance.now(), dur = 1400;
+  (function step(t){
+    const k = Math.min(1,(t-t0)/dur), e = 1-Math.pow(1-k,3);
+    $("big").textContent = fmt(Math.round(CONFIG.raised*e*100)/100);
+    if(k<1) requestAnimationFrame(step);
+  })(t0);
+}
+
+/* Confettis */
+const cv = $("confetti"), cx = cv.getContext("2d");
+let parts = [], raf = null;
+function size(){ const d = window.devicePixelRatio||1; cv.width = innerWidth*d; cv.height = innerHeight*d; cx.setTransform(d,0,0,d,0,0); }
+addEventListener("resize", size); size();
+const COLS = ["#ff5e3a","#ffb02e","#ff3d8b","#3ec6ff","#7be495","#b388ff"];
+function boom(){
+  if(matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  for(let i=0;i<170;i++){
+    parts.push({x:innerWidth*(.2+Math.random()*.6), y:innerHeight*.6, vx:(Math.random()-.5)*16, vy:-Math.random()*17-5,
+      w:6+Math.random()*6, h:9+Math.random()*9, r:Math.random()*6, vr:(Math.random()-.5)*.4, c:COLS[i%COLS.length]});
+  }
+  if(!raf) loop();
+}
+function loop(){
+  cx.clearRect(0,0,innerWidth,innerHeight);
+  parts = parts.filter(p=>p.y < innerHeight+40);
+  for(const p of parts){
+    p.vy += .35; p.vx *= .99; p.x += p.vx; p.y += p.vy; p.r += p.vr;
+    cx.save(); cx.translate(p.x,p.y); cx.rotate(p.r); cx.fillStyle = p.c; cx.fillRect(-p.w/2,-p.h/2,p.w,p.h); cx.restore();
+  }
+  raf = parts.length ? requestAnimationFrame(loop) : null;
+  if(!parts.length) cx.clearRect(0,0,innerWidth,innerHeight);
+}
+
+/* Choix du montant */
+let fired = false;
+function pick(v, btn){
+  [...$("amounts").children].forEach(c=>c.classList.toggle("on", c===btn));
+  $("give").textContent = v>0 ? "❤️ Je donne " + fmt(v) : "❤️ Je donne";
+  if(v > CONFIG.confettiAbove){
+    $("msg").textContent = "Wow, quelle générosité, merci ! 🎉";
+    if(!fired){ boom(); fired = true; }
+  } else { fired = false; $("msg").textContent = ""; }
+}
+CONFIG.suggestions.forEach(v=>{
+  const b = document.createElement("button");
+  b.textContent = v + " €";
+  b.onclick = ()=>{ $("custom").value = ""; pick(v,b); };
+  $("amounts").appendChild(b);
+});
+$("custom").addEventListener("input", ()=>{
+  const v = parseFloat($("custom").value.replace(",", "."));
+  pick(v>0 ? v : null, null);
+});
+$("give").addEventListener("click", e=>{
+  if(!CONFIG.paymentUrl){ e.preventDefault(); $("msg").textContent = "Le lien de paiement sera bientôt ajouté."; return; }
+  $("give").href = CONFIG.paymentUrl;
+});
+render();
+</script>
+</body>
+</html>
